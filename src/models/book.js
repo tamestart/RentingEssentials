@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const bookSchema = new mongoose.Schema({
     name: String,
     description: String,
-    hourlyRate: Number
+    hourlyRate: Number,
+    authour: String
 })
 
-export default mongoose.model('Books', bookSchema)
+module.exports = mongoose.models.Books || mongoose.model('Books', bookSchema);
