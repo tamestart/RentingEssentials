@@ -1,4 +1,4 @@
-var book = require('@/models/book.js') 
+var book = require('@/models/book') 
 import mongoose from 'mongoose';
 require('dotenv').config()
 
@@ -11,7 +11,8 @@ export default async function handler(req, res) {
       name: body.title,
       description: body.Description,
       hourlyRate: body.Price,
-      authour: body.Authour
+      authour: body.Authour,
+      inStock: true
     })
 
     await booko.save();

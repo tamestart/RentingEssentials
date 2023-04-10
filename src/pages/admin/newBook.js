@@ -6,6 +6,7 @@ import React, { useState } from 'react'
     const [Price, setPrice] = useState("")
     const [Description, setDescription] = useState("")
     const [Authour, setAuthour] = useState("")
+    const [Image, setImage] = useState(null)
     const onTitleChange = (e) => {
         setTitle(e.target.value)
     } 
@@ -18,6 +19,18 @@ import React, { useState } from 'react'
     const onAuthourChange = (e) => {
         setAuthour(e.target.value)
     }
+    const onImageChange = async (formData) => {
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' },
+            onUploadProgress: (event) => {
+              console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+            },
+          };
+      
+          const response = await axios.post('/api/bookImageUpload', formData, config);
+      
+          console.log('response', response.data);
+    }
     const uploadBook = async (e) => {
         e.preventDefault()
         let body = JSON.stringify({
@@ -29,10 +42,24 @@ import React, { useState } from 'react'
         await axios.post('/api/newBook', {body}).then((res) => {
             console.log(res.data)
         })
+        alert("New Book Created!")
+        const bodyImage = new FormData();
+        // console.log("file", image)
+        bodyImage.append("file", Image); 
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' },
+            onUploadProgress: (event) => {
+              console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+            },
+          };
+      
+        //   const response = await axios.post('/api/bookImageUpload', bodyImage, config);
+      
+          // console.log('response', response.data); 
     }
   return (
     <div>
-        <form onSubmit={uploadBook}>
+        <form onSubmit={uploadBook} encType="multipart/form-data">
             <input type="text" onChange={onTitleChange} required placeholder='Title'/>
             <br />
             <br />
@@ -43,6 +70,9 @@ import React, { useState } from 'react'
             <br />
             <br />
             <input type="text" onChange={onAuthourChange} required placeholder='Authour'/>
+            {/* <br />
+            <br />
+            <input type="file" onChange={onImageChange} required placeholder='Upload Image' name='theFiles'/> */}
             <br />
             <br />
             <button type="submit">Create New Book</button>
