@@ -59,7 +59,9 @@ import React, { useState } from 'react'
     }
   return (
     <div>
-        <form onSubmit={uploadBook} encType="multipart/form-data">
+      <center>
+        <h1>Create New Book!</h1>
+      <form onSubmit={uploadBook} encType="multipart/form-data">
             <input type="text" onChange={onTitleChange} required placeholder='Title'/>
             <br />
             <br />
@@ -77,6 +79,8 @@ import React, { useState } from 'react'
             <br />
             <button type="submit">Create New Book</button>
         </form>
+      </center>
+        
     </div>
   )
 }

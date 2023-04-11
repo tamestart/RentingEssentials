@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import Book from '@/components/Book'
 
 
 
@@ -110,13 +111,17 @@ export default function Home() {
             {console.log(i)}
             {console.log(Data[i].name)}
             
-            return (<div key={i} className={i}>
-              <h1>{Data[i].name}</h1>
-              <h3>{Data[i].description}</h3>
-              <h4>₹{Data[i].hourlyRate}/Day</h4>
+            return (
+            <div key={i} className={i}>
               
-              <button onClick={handleOrder}>Rent Now</button>
-            </div>)
+              <Book doc={Data[i]}/>
+            {/* //   <h1>{Data[i].name}</h1>
+            //   <h3>{Data[i].description}</h3>
+            //   <h4>₹{Data[i].hourlyRate}/Day</h4>
+              
+            //   <button onClick={handleOrder}>Rent Now</button> */}
+            </div>
+            )
             
 
           })}

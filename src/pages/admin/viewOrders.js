@@ -15,6 +15,25 @@ const viewOrders = () => {
     
   }
 
+  const orderReturned = async (e) => {
+    let dataO = await data(e)
+    await axios.get('/api/orderReturned', dataO)
+  }
+
+  const orderDelivered = async (e) => {
+    let dataO = await data(e)
+    await axios.get('/api/orderDelivered', dataO)
+  }
+
+  const deleteOrder = async (e) => {
+    console.log(e.target.parentNode.id)
+    await axios.get('/api/deleteOrder', JSON.stringify({id: e.target.parentNode.id}))
+  }
+
+  const data  = (e) => {
+    return {id: e.target.parentNode.id}
+  }
+
   useEffect(() => {
     loadOrders()
   }, [])
@@ -35,12 +54,11 @@ const viewOrders = () => {
                 <h1>Book: {doc.bookName}</h1>
                 <h3>Address: {doc.address}</h3>
                 <h3>Days To Be Rented: {doc.days}</h3>
-                <div>
-                  <button>Delete Order</button>
-                  <button>Book Given Order</button>
-                  <button>Book Returned Order</button>
+                <h4>Order Date: {doc.dateRentOut}</h4>
+                {/* <div>Time Left: </div> */}
+                <div id={doc._id}>
+                  {/* <button onClick={deleteOrder}>Delete Order</button> */}
                 </div>
-                <div>Time Left: </div>
               </div>
             )
           })

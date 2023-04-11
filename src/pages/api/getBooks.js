@@ -13,7 +13,9 @@ export default async function handler (req, res) {
             name: book.name,
             hourlyRate: book.hourlyRate,
             description: book.description,
-            _id: book._id
+            _id: book._id,
+            inStock: book.inStock,
+            authour: book.authour
         }
         books.push(object)
         // console.log(object)

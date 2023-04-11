@@ -1,3 +1,4 @@
+import book from "@/models/book";
 import order from "@/models/order";
 
 const handler = async (req, res) => {
@@ -13,6 +14,11 @@ const handler = async (req, res) => {
         returned: false
     })
     await newOrder.save()
+
+    let bookO = await book.findOne({_id: body.id})
+    bookO.inStock = false;
+    await bookO.save();
+    
     res.status(200).json({message: "Success!"})
 
 }
