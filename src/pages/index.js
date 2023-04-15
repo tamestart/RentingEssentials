@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import Book from '@/components/Book'
-
+// import '@/styles/globals.css'
+// import '@/styles/Index.module.css'
+import styles from "@/components/Index.module.css"
 
 
 export default function Home() {
@@ -53,11 +55,17 @@ export default function Home() {
       localStorage.setItem("flat", flat)
     } else {
       flat  = localStorage.getItem("flat")
-      console.log(flat)
+      // console.log(flat)
     }
 
+    
+
     let days = await prompt("Please enter the number of days you want to rent the book for. (Maximum 7)")
-    console.log(days)
+    // console.log(days)
+
+    if (parseInt(days) > 7) {
+      days = await prompt("Please enter a maximum of 7 days you want to rent the book for.")
+    }
     
     
     let orderBody = {
@@ -66,9 +74,9 @@ export default function Home() {
       noOfDays: days,
       address: flat
   }
-    console.log(orderBody)
+    // console.log(orderBody)
     const response = await axios.post('/api/newOrder', orderBody).then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
     })
 
 
@@ -98,23 +106,30 @@ export default function Home() {
         <title>Renting Essentials</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <center>
-        <div>
-          <h1>Renting Essentials</h1>
+      <center id='main'>
+        <div style={{ fontFamily:'sans-serif' }}>
+          <div id='heading'>
+            <h1 >Renting Essentials</h1>
+            {/* <br/> */}
+            <hr></hr>
+          </div>
+          
           <br />
 
 
           {Data != false && Data !== [] &&
           
           Data.map((book, i) => {
-            {console.log(book)}
-            {console.log(i)}
-            {console.log(Data[i].name)}
+            // {console.log(book)}
+            // {console.log(i)}
+            // {console.log(Data[i].name)}
             
             return (
             <div key={i} className={i}>
               
               <Book doc={Data[i]}/>
+              <br />
+              <br />
             {/* //   <h1>{Data[i].name}</h1>
             //   <h3>{Data[i].description}</h3>
             //   <h4>₹{Data[i].hourlyRate}/Day</h4>
@@ -135,7 +150,7 @@ export default function Home() {
         <br />
         <br />
         
-          <button onClick={changeAddress}>Change address</button>
+          <button onClick={changeAddress} id={styles.rentNowButton}>Change address</button>
       </center>
     </>
   )

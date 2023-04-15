@@ -1,9 +1,25 @@
 import axios from 'axios'
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import styles from './Index.module.css'
 const Book = ({doc}) => {
+
+  const askFlat = async () => {
+    if (localStorage.getItem("flat") == null) {
+      let flat = await prompt("Please enter your flat number for delivery. (Refresh to cancel)")
+      if (flat == null || flat == "") {
+        await askFlat()
+      }
+      localStorage.setItem("flat", flat)
+      return flat
+    } else {
+      return localStorage.getItem("flat")
+    
+    }
+
+  }
+
     // let doc = docO
-    console.log(doc.bookName)
+    // console.log(doc.bookName)
     const handleOrder = async(e) => {
         let index = e.target.parentNode.className
     let DataOfIndex = doc
@@ -13,17 +29,10 @@ const Book = ({doc}) => {
       await alert(`Thank you for choosing us to rent your books, by clicking OK you will be renting the book ${DataOfIndex.name} for ₹${DataOfIndex.hourlyRate} per day. This book will be delivered to flat ${localStorage.getItem('flat')} at Ahad Opus.`)
     }
     let flat;
-    if (localStorage.getItem("flat") == null) {
-      flat = await prompt("Please enter your flat number for delivery.")
-      console.log(flat)
-      localStorage.setItem("flat", flat)
-    } else {
-      flat  = localStorage.getItem("flat")
-      console.log(flat)
-    }
+    flat = await askFlat();
 
     let days = await prompt("Please enter the number of days you want to rent the book for. (Maximum 7)")
-    console.log(days)
+    // console.log(days)
     
     
     let orderBody = {
@@ -32,9 +41,9 @@ const Book = ({doc}) => {
       noOfDays: days,
       address: flat
   }
-    console.log(orderBody)
+    // console.log(orderBody)
     const response = await axios.post('/api/newOrder', orderBody).then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
     })
 
 
@@ -49,19 +58,28 @@ const Book = ({doc}) => {
     Your total payment is for ₹${parseInt(days) * parseInt(DataOfIndex.hourlyRate)}, which we will collect on return of the book. Thanks for choosing us today! We hope you had a pleasant experience.`)
     
     }
+    useEffect(() => {
+      console.log(localStorage.getItem("flat"))
+    
+     
+    }, [])
+    
   return (
     <div>
-            {doc.inStock &&
+        {doc.inStock &&
     
-    <div>
-        <h1>{doc.name} By {doc.authour}</h1>
-              <h3>{doc.description}</h3>
-              <h4>₹{doc.hourlyRate}/Day</h4>
-              
-              <button onClick={handleOrder}>Rent Now</button>
-        {/* <div>Time Left: </div> */}
-    </div>
-}
+          <div id={styles.rect1}>
+            <img id={styles.imgSrc} src='/redbook.png'></img>
+            <h1 id={styles.heading}>{doc.name} By {doc.authour}</h1>
+            <h3 id={styles.description}>{doc.description}</h3>
+            <div style={{display:'flex', justifyContent: 'space-evenly'}}>
+            <h4>₹{doc.hourlyRate}/Day</h4>       
+            <button onClick={handleOrder} id={styles.rentNowButton}>Rent Now</button>
+            </div>
+
+          </div>
+          
+        }
 
     </div>
 
