@@ -73,7 +73,7 @@ export default function Home() {
         <br />
         
           <button onClick={changeAddress} id={styles.rentNowButton}>Change address</button>
-          <button  id={styles.rentNowButton}> <a href='/viewOrders'>View Orders</a></button>
+          {/* <button  id={styles.rentNowButton}> <a href='/viewOrders'>View Orders</a></button> */}
       </center>
     </>
   )
