@@ -1,4 +1,5 @@
 #rect1 {
+
     width: 20vw;
     padding: 1rem;
     background: linear-gradient(0deg, rgba(255, 185, 185, 0.2), rgba(255, 185, 185, 0.2));
@@ -45,3 +46,4 @@ width: 6vw;
 height: 40px;
 cursor: pointer;
 }
+  

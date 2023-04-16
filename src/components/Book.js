@@ -18,8 +18,6 @@ const Book = ({doc}) => {
 
   }
 
-    // let doc = docO
-    // console.log(doc.bookName)
     const handleOrder = async(e) => {
         let index = e.target.parentNode.className
     let DataOfIndex = doc
@@ -32,7 +30,7 @@ const Book = ({doc}) => {
     flat = await askFlat();
 
     let days = await prompt("Please enter the number of days you want to rent the book for. (Maximum 7)")
-    // console.log(days)
+
     
     
     let orderBody = {
@@ -41,9 +39,14 @@ const Book = ({doc}) => {
       noOfDays: days,
       address: flat
   }
-    // console.log(orderBody)
+
     const response = await axios.post('/api/newOrder', orderBody).then((res) => {
-      // console.log(res.data)
+      console.log(JSON.parse(localStorage.getItem('orders')))
+      console.log(res.data._id)
+      console.log(JSON.parse(localStorage.getItem('orders')).push(res.data._id))
+      let array = JSON.parse(localStorage.getItem('orders'))
+      array.push(res.data._id)
+      localStorage.setItem("orders", JSON.stringify(array))
     })
 
 

@@ -19,7 +19,7 @@ const handler = async (req, res) => {
     bookO.inStock = false;
     await bookO.save();
     
-    res.status(200).json({message: "Success!"})
+    res.status(200).json(newOrder)
 
 }
 
