@@ -1,8 +1,4 @@
-
-import OrderSnippet from '@/components/orderSnippet'
 import React, { useEffect, useState } from 'react'
-
-
 
 const viewOrders = () => {
     const [Data, setData] = useState("")
