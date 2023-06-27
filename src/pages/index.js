@@ -11,6 +11,9 @@ import styles from "@/components/Index.module.css"
 export default function Home() {
   const [DataLoaded, setDataLoaded] = useState(false)
   const [Data, setData] = useState(false)
+  const [Token, setToken] = useState("")
+
+
   const loadData = async () => {
     if (DataLoaded == false) {
       const response = await axios.get('/api/getBooks');
@@ -21,7 +24,7 @@ export default function Home() {
       if (localStorage.getItem('orders') == null) {
         localStorage.setItem('orders', JSON.stringify([]))
       }
-    } 
+    }
   }
 
   const changeAddress = (e) => {
@@ -29,11 +32,14 @@ export default function Home() {
     localStorage.setItem('flat', newFlat)
   }
 
-
+  const settoken = () => {
+    setToken(localStorage.getItem("token"))
+  }
 
   useEffect(() => {
     loadData();
-   }, [])
+    settoken()
+  }, [])
 
   return (
     <>
@@ -42,39 +48,42 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <center id='main'>
-        <div style={{ fontFamily:'sans-serif' }}>
-          <div id='heading'>
+        <div style={{ fontFamily: 'sans-serif' }}>
+          <div id='heading' style={{ display: 'flex', justifyContent: 'space-around', width: '90vw', color: 'white', backgroundColor: 'black', paddingLeft: '3vw', paddingRight: '3vw', borderRadius: '7px' }}>
             <h1 >Renting Essentials</h1>
-            {/* <br/> */}
-            <hr></hr>
+            {Token == null &&
+              <div>
+                <h2 ><Link href='/Login' style={{ textDecoration: 'none', color: 'whitesmoke' }}>Login</Link></h2>
+                <h2 ><Link href='/Register' style={{ textDecoration: 'none', color: 'whitesmoke' }}>Register</Link></h2>
+              </div>
+            }
+            {Token &&
+              <div>
+                <h2 ><a href='/Logout' style={{ textDecoration: 'none', color: 'whitesmoke' }}>Logout</a></h2>
+                <h2 ><a href='/viewOrders' style={{ textDecoration: 'none', color: 'whitesmoke' }}>View My Orders</a></h2>
+              </div>
+
+            }
           </div>
-          
           <br />
-
-
-          {Data != false && Data !== [] &&
-          
-          Data.map((book, i) => {
-            return (
-            <div key={i} className={i} id={styles.container}>
-              <Book doc={Data[i]}/>
-              <br />
-              <br />
-            </div>
-            )
-            
-
-          })}
-          
-          {Data === false && <h1>Loading...</h1>}
-          
+          <div id="wrapper-1a">
+            {Data != false && Data !== [] &&
+              Data.map((book, i) => {
+                return (
+                  <div key={i} className={i} id={styles.container}>
+                    <Book doc={Data[i]} />
+                    <br />
+                    <br />
+                  </div>
+                )
+              })}
+            {Data === false && <h1>Loading...</h1>}
+          </div>
         </div>
         <br />
         <br />
-        
-          <button onClick={changeAddress} id={styles.rentNowButton}>Change address</button>
-          {/* <button  id={styles.rentNowButton}> <a href='/viewOrders'>View Orders</a></button> */}
-      </center>
+        <button onClick={changeAddress} id={styles.rentNowButton}>Change address</button>
+      </center >
     </>
   )
 }

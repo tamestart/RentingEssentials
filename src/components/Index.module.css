@@ -14,36 +14,41 @@
 }
 
 #heading {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-font-style: normal;
-font-weight: 300;
-font-size: 25px;
-line-height: 39px;
-display: flex;
-align-items: center;
-text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 39px;
 
-color: #000000;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
 
 
 }
 
 #description {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: normal;
     font-weight: 1;
     font-size: 17px;
     line-height: 27px;
     text-align: left;
-    
-    
+
+
 }
 
 #rentNowButton {
     background: rgba(166, 239, 255, 0.44);
-border-radius: 11px;
-width: 6vw;
-height: 40px;
-cursor: pointer;
+    border-radius: 11px;
+    width: 6vw;
+    height: 40px;
+    cursor: pointer;
 }
-  
+
+#wrapper-1a {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}

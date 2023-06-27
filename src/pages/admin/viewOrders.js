@@ -28,6 +28,24 @@ const viewOrders = () => {
     await axios.get('/api/deleteOrder', JSON.stringify({id: e.target.parentNode.id}))
   }
 
+  
+
+  const dateToTime = date => date.toLocaleString('en-GB', {
+    year: "numeric",
+     month: "numeric",
+    day: "numeric",
+    hour: 'numeric',
+    minute: 'numeric'
+  });
+
+  const convertDate = (dateEpoch) => {
+    let dateCurrent = new Date(dateEpoch);
+    const userOffset = new Date().getTimezoneOffset()*60*1000;
+    const utcDate = new Date(dateCurrent.getTime() + userOffset);
+    console.log(dateCurrent)
+    return(dateToTime(dateCurrent))
+  }
+
   const data  = (e) => {
     return {id: e.target.parentNode.id}
   }
@@ -49,7 +67,13 @@ const viewOrders = () => {
                 <h1>Book: {doc.bookName}</h1>
                 <h3>Address: {doc.address}</h3>
                 <h3>Days To Be Rented: {doc.days}</h3>
-
+                <h4>Date Rent: { 
+                
+                  
+                  convertDate(doc.dateRentOut)
+                
+                
+                }</h4>
                 <div>Time Left: </div>
               </div>
             )

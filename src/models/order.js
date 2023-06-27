@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
     book: mongoose.Schema.Types.ObjectId,
-    dateRentOut: mongoose.Schema.Types.Date,
+    dateRentOut: Number,
     bookName: String,
     address: String,
     days: String,
